@@ -1,0 +1,26 @@
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #e3e3e9;
+    width: 100%;
+    padding: 30px;
+
+}
+
+.address {
+    background-color: #7070e3;
+    height: 200px;
+    border-radius: 5px;
+
+}
+
+.balance {
+    background-color: #5a78f0;
+    height: 200px;
+}
+.colorWhite{
+    color: #fff;
+    word-break: break-all;
+    white-space: normal;
+}
