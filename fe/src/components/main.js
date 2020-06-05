@@ -12,7 +12,7 @@ export default class extends Component {
     this.state = {
       address: null,
       balance: null,
-      transactionPool: null,
+      historyTransaction: [],
       receiverAddress: "",
       receiverAmount: "",
     };
@@ -41,16 +41,17 @@ export default class extends Component {
   }
 
   showHistory = () => {
-    axios
-      .get("http://localhost:3001/transactionPool")
-      .then((data) => {
-        this.setState({
-          transactionPool: data.data,
+    axios.get("http://localhost:3001/blocks").then((data) => {
+      data.data.map((a, i) => {
+         axios.get("http://localhost:3001/block/" + a.hash).then((data) => {
+          let history=this.state.historyTransaction;
+          history.push(data.data.data);
+          this.setState({
+            historyTransaction:history
+          })
         });
-      })
-      .catch((e) => {
-        console.log(e);
       });
+    });
   };
 
   onMine = () => {
@@ -95,7 +96,7 @@ export default class extends Component {
     const {
       address,
       balance,
-      transactionPool,
+      historyTransaction,
       receiverAddress,
       receiverAmount,
     } = this.state;
@@ -113,7 +114,7 @@ export default class extends Component {
             </Link>
             <Link to="/history_transaction">
               <button type="button" className="btn btn-secondary">
-                Transaction pool
+                History transaction
               </button>
             </Link>
 
@@ -131,7 +132,7 @@ export default class extends Component {
             <Route path="/history_transaction">
               <HistoryTransaction
                 showHistory={this.showHistory}
-                transactionPool={transactionPool}
+                historyTransaction={historyTransaction}
               ></HistoryTransaction>
             </Route>
             <Route path="/send">

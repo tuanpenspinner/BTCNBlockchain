@@ -6,3 +6,7 @@
     background-color: rgb(202, 224, 217);
     padding: 10px;
 }
+.rowHistory{
+    word-break: break-all;
+    white-space: normal;
+}
